@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <base target="_top">
@@ -166,83 +166,5 @@
     });
   });
 </script>
-</body>
-</html>-->
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Camper Booking with Litepicker</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      max-width: 500px;
-      margin: auto;
-      background: #f7f7f7;
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 0.6rem;
-      margin-top: 0.4rem;
-      font-size: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <h2>Book Your Camper</h2>
-
-  <label for="vehicle">Choose a camper:</label>
-  <select id="vehicle">
-    <option value="">-- Select --</option>
-    <option value="camper1">Camper 1</option>
-  </select>
-
-  <label for="date-range">Select Date Range:</label>
-  <input type="text" id="date-range" readonly />
-
-  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
-  <script>
-    const picker = new Litepicker({
-      element: document.getElementById('date-range'),
-      singleMode: false,
-      numberOfMonths: 2,
-      numberOfColumns: 2,
-      format: 'YYYY-MM-DD',
-      lockDays: [], // to be updated with unavailable dates
-    });
-
-    async function fetchUnavailable(vehicle) {
-      if (!vehicle) return;
-
-      const url = `https://script.google.com/macros/s/AKfycbzNcp1VYMVVH01VhkzfNYPjgQzXHSU-dpeAt7wB5iV_ipydJfsRjJIdolJsE06zO5kO/exec?vehicle=${vehicle}`;
-
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-         console.log("Data received from backend:", data);  // <-- Add this line
-
-        if (data.unavailableDates) {
-          picker.setOptions({
-            lockDays: data.unavailableDates
-          });
-        }
-      } catch (err) {
-        console.error("Failed to fetch unavailable dates:", err);
-        unavailable = [];
-      }
-    }
-
-    document.getElementById('vehicle').addEventListener('change', (e) => {
-      fetchUnavailable(e.target.value);
-    });
-  </script>
 </body>
 </html>
