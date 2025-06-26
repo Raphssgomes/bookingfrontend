@@ -90,7 +90,7 @@
     let unavailable = [];
 
     async function loadUnavailableDates(vehicleId) {
-      console.log(vehicleId);
+      console.log("Selected vehicle ID:", vehicleId);
       const url = `https://script.google.com/macros/s/AKfycbzNcp1VYMVVH01VhkzfNYPjgQzXHSU-dpeAt7wB5iV_ipydJfsRjJIdolJsE06zO5kO/exec?vehicle=${vehicleId}`;
       try {
         const response = await fetch(url);
